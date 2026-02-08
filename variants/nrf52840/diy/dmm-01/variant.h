@@ -21,7 +21,7 @@ extern "C" {
 #endif // __cplusplus
 
 #define PINS_COUNT (48)
-#define NUM_DIGITAL_PINS (40)
+#define NUM_DIGITAL_PINS (48)
 #define NUM_ANALOG_INPUTS (8) // A6 is used for battery, A7 is analog reference
 #define NUM_ANALOG_OUTPUTS (0)
 
@@ -38,16 +38,16 @@ extern "C" {
 #define PIN_LED PIN_LED1
 #define LED_PWR (PINS_COUNT)
 
-#define LED_BUILTIN PIN_LED
+// #define LED_BUILTIN PIN_LED
 #define LED_STATE_ON 1 // State when LED is lit
 
 // BUTTON_A
 #define PIN_BUTTON1 4  // P0.04
-#define BUTTON_NEED_PULLUP
+// #define BUTTON_NEED_PULLUP
 
 // BUTTON_B
 #define PIN_BUTTON2 9  // P0.09
-#define BUTTON_NEED_PULLUP
+// #define BUTTON_NEED_PULLUP
 
 // Digital Pins
 // ------------
@@ -97,8 +97,8 @@ static const uint8_t A5 = PIN_A5;
 #define PIN_NFC2 D15 // (31)
 
 // RX and TX pins
-#define PIN_SERIAL1_RX D7 // (-1)
-#define PIN_SERIAL1_TX D6 // (-1)
+#define PIN_SERIAL1_RX D4  // (-1)
+#define PIN_SERIAL1_TX D15 // (-1)
 // complains if not defined
 #define PIN_SERIAL2_RX (-1)
 #define PIN_SERIAL2_TX (-1)
@@ -196,25 +196,25 @@ static const uint8_t SCK = PIN_SPI_SCK;
 
 // Sense version has IMU and PDM Mic
 // #define XIAO_SENSE
-#ifndef XIAO_SENSE
-// 6 DoF IMU
-#define PIN_LSM6DS3TR_C_POWER (15)
-#define PIN_LSM6DS3TR_C_INT1 (18)
-// PDM Interfaces
-// ---------------
-#define PIN_PDM_PWR (19)
-#define PIN_PDM_CLK (20)
-#define PIN_PDM_DIN (21)
-#endif
+// #ifndef XIAO_SENSE
+// // 6 DoF IMU
+// #define PIN_LSM6DS3TR_C_POWER (15)
+// #define PIN_LSM6DS3TR_C_INT1 (18)
+// // PDM Interfaces
+// // ---------------
+// #define PIN_PDM_PWR (19)
+// #define PIN_PDM_CLK (20)
+// #define PIN_PDM_DIN (21)
+// #endif
 
 // QSPI Pins
 // ---------
-#define PIN_QSPI_SCK (24)
-#define PIN_QSPI_CS (25)
-#define PIN_QSPI_IO0 (26)
-#define PIN_QSPI_IO1 (27)
-#define PIN_QSPI_IO2 (28)
-#define PIN_QSPI_IO3 (29)
+// #define PIN_QSPI_SCK (24)
+// #define PIN_QSPI_CS (25)
+// #define PIN_QSPI_IO0 (26)
+// #define PIN_QSPI_IO1 (27)
+// #define PIN_QSPI_IO2 (28)
+// #define PIN_QSPI_IO3 (29)
 
 // On-board QSPI Flash
 // -------------------
