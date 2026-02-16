@@ -20,8 +20,8 @@
 extern "C" {
 #endif // __cplusplus
 
-#define PINS_COUNT (48)
-#define NUM_DIGITAL_PINS (48)
+#define PINS_COUNT (33)
+#define NUM_DIGITAL_PINS (33)
 #define NUM_ANALOG_INPUTS (8) // A6 is used for battery, A7 is analog reference
 #define NUM_ANALOG_OUTPUTS (0)
 
@@ -35,19 +35,11 @@ extern "C" {
 #define PIN_LED2 LED_BLUE
 #define PIN_LED3 LED_RED
 
-#define PIN_LED PIN_LED1
-#define LED_PWR (PINS_COUNT)
-
-// #define LED_BUILTIN PIN_LED
 #define LED_STATE_ON 1 // State when LED is lit
 
-// BUTTON_A
-#define PIN_BUTTON1 4  // P0.04
-// #define BUTTON_NEED_PULLUP
-
-// BUTTON_B
-#define PIN_BUTTON2 9  // P0.09
-// #define BUTTON_NEED_PULLUP
+// XIAO Wio-SX1262 Shield User button
+#define PIN_BUTTON1 29 // D3
+#define BUTTON_NEED_PULLUP
 
 // Digital Pins
 // ------------
@@ -62,15 +54,6 @@ extern "C" {
 #define D8 (8ul)
 #define D9 (9ul)
 #define D10 (10ul)
-#define D11 (11ul)
-#define D12 (12ul)
-#define D13 (13ul)
-#define D14 (14ul)
-#define D15 (15ul)
-#define D16 (16ul)
-#define D17 (17ul)
-#define D18 (18ul)
-#define D19 (19ul)
 
 // Analog Pins
 // -----------
@@ -93,109 +76,63 @@ static const uint8_t A5 = PIN_A5;
 
 // Other Pins
 // ----------
-#define PIN_NFC1 D14 // (30)
-#define PIN_NFC2 D15 // (31)
+// #define PIN_NFC1 (30)
+// #define PIN_NFC2 (31)
 
 // RX and TX pins
-#define PIN_SERIAL1_RX D4  // (-1)
-#define PIN_SERIAL1_TX D15 // (-1)
+#define PIN_SERIAL1_RX (10) // D15 (-1)
+#define PIN_SERIAL1_TX (4)  // D4 (-1)
 // complains if not defined
 #define PIN_SERIAL2_RX (-1)
 #define PIN_SERIAL2_TX (-1)
 
-// 4 is used as RF_SW and 5 for USR button so...
-#define PIN_WIRE_SDA D0  // (6)
-#define PIN_WIRE_SCL D11 // (7)
+
+// Wire Interfaces
+// -------------------
+#define I2C_NO_RESCAN
+#define WIRE_INTERFACES_COUNT 1 // 2
+#define PIN_WIRE_SDA (2)  // D0
+#define PIN_WIRE_SCL (15) // D11
 
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;
 
-// trackball
-#define HAS_TRACKBALL 1
-#define TB_UP 28    // DPADC
-#define TB_DOWN 3   // DPADA
-#define TB_LEFT 19  // DPADB
-#define TB_RIGHT 33 // DPADD
-// #define TB_PRESS 29
-#define TB_DIRECTION FALLING
-
-// SPI LR1121
+// SPI SX1262
 // ----------
-#define SPI_LR1121
-#ifdef SPI_LR1121
+#define SPI_SX1262
+#ifdef SPI_SX1262
 #define SPI_INTERFACES_COUNT 1
 
-#define PIN_SPI_MISO (32 + 14)
-#define PIN_SPI_MOSI (32 + 15)
-#define PIN_SPI_SCK (32 + 13)
-#define PIN_SPI_NSS (32 + 12)
+#define PIN_SPI_MISO (9)
+#define PIN_SPI_MOSI (10)
+#define PIN_SPI_SCK (8)
 
-static const uint8_t SS = PIN_SPI_NSS;
+static const uint8_t SS = D3;
 static const uint8_t MOSI = PIN_SPI_MOSI;
 static const uint8_t MISO = PIN_SPI_MISO;
 static const uint8_t SCK = PIN_SPI_SCK;
 
-#define LORA_RESET (32 + 3)  // P1.03 ~ RST
-#define LORA_DIO1 (32 + 7)   // P1.07 ~ IRQ/DIO1
-#define LORA_DIO2 (32 + 5)   // P1.05 ~ BUSY/DIO2
-#define LORA_SCK (32 + 13)   // P1.13 ~ SCK
-#define LORA_MISO (32 + 14)  // P1.14 ~ MISO
-#define LORA_MOSI (32 + 15)  // P1.15 ~ MOSI
-#define LORA_CS (32 + 12)    // P1.12 ~ CS
-
 // supported modules list
-#define USE_LR1110
+#define USE_SX1262
 
-#define LR1110_IRQ_PIN LORA_DIO1
-#define LR1110_BUSY_PIN LORA_DIO2
-#define LR1110_NRESET_PIN LORA_RESET
-#define LR1110_SPI_NSS_PIN LORA_CS
-#define LR1110_SPI_SCK_PIN LORA_SCK
-#define LR1110_SPI_MOSI_PIN LORA_MOSI
-#define LR1110_SPI_MISO_PIN LORA_MISO
+// common pinouts for SX126X modules
+#define SX126X_CS D3
+#define SX126X_DIO1 D0
+#define SX126X_BUSY D1
+#define SX126X_RESET D2
 
-#define LR11X0_DIO3_TCXO_VOLTAGE 1.6
-#define LR11X0_DIO_AS_RF_SWITCH
+// DIO2 controlls an antenna switch and the TCXO voltage is controlled by DIO3
+#define SX126X_DIO2_AS_RF_SWITCH
+#define SX126X_RXEN 38
+#define SX126X_TXEN RADIOLIB_NC
+#define SX126X_DIO3_TCXO_VOLTAGE 1.8
+#define SX126X_DIO3_TCXO_VOLTAGE 1.8
 #endif
 
-// SPI SX1262
-// ----------
-// #define SPI_SX1262
-// #ifdef SPI_SX1262
-// #define SPI_INTERFACES_COUNT 1
 
-// #define PIN_SPI_MISO (9)
-// #define PIN_SPI_MOSI (10)
-// #define PIN_SPI_SCK (8)
 
-// static const uint8_t SS = D3;
-// static const uint8_t MOSI = PIN_SPI_MOSI;
-// static const uint8_t MISO = PIN_SPI_MISO;
-// static const uint8_t SCK = PIN_SPI_SCK;
-
-// // supported modules list
-// #define USE_SX1262
-
-// // common pinouts for SX126X modules
-// #define SX126X_CS D3
-// #define SX126X_DIO1 D0
-// #define SX126X_BUSY D1
-// #define SX126X_RESET D2
-
-// // DIO2 controlls an antenna switch and the TCXO voltage is controlled by DIO3
-// #define SX126X_DIO2_AS_RF_SWITCH
-// #define SX126X_RXEN 38
-// #define SX126X_TXEN RADIOLIB_NC
-// #define SX126X_DIO3_TCXO_VOLTAGE 1.8
-// #define SX126X_DIO3_TCXO_VOLTAGE 1.8
-// #endif
-
-// Wire Interfaces
-// -------------------
-#define WIRE_INTERFACES_COUNT 1 // 2
-
-// Sense version has IMU and PDM Mic
-// #define XIAO_SENSE
+// // Sense version has IMU and PDM Mic
+// // #define XIAO_SENSE
 // #ifndef XIAO_SENSE
 // // 6 DoF IMU
 // #define PIN_LSM6DS3TR_C_POWER (15)
@@ -207,8 +144,8 @@ static const uint8_t SCK = PIN_SPI_SCK;
 // #define PIN_PDM_DIN (21)
 // #endif
 
-// QSPI Pins
-// ---------
+// // QSPI Pins
+// // ---------
 // #define PIN_QSPI_SCK (24)
 // #define PIN_QSPI_CS (25)
 // #define PIN_QSPI_IO0 (26)
@@ -216,10 +153,10 @@ static const uint8_t SCK = PIN_SPI_SCK;
 // #define PIN_QSPI_IO2 (28)
 // #define PIN_QSPI_IO3 (29)
 
-// On-board QSPI Flash
-// -------------------
-#define EXTERNAL_FLASH_DEVICES P25Q16H
-#define EXTERNAL_FLASH_USE_QSPI
+// // On-board QSPI Flash
+// // -------------------
+// #define EXTERNAL_FLASH_DEVICES P25Q16H
+// #define EXTERNAL_FLASH_USE_QSPI
 
 // Battery
 // -------

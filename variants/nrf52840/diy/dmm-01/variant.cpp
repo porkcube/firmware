@@ -4,7 +4,7 @@
 #include "wiring_digital.h"
 
 const uint32_t g_ADigitalPinMap[] = {
-    // D0 .. D10
+    // D0 .. D13
     2,  // D0  is P0.02 (A0)
     3,  // D1  is P0.03 (A1)
     28, // D2  is P0.28 (A2)
@@ -16,19 +16,6 @@ const uint32_t g_ADigitalPinMap[] = {
     45, // D8  is P1.13 (SCK)
     46, // D9  is P1.14 (MISO)
     47, // D10 is P1.15 (MOSI)
-
-    // D11 .. D19
-    15, // D11 is P0.15 (I2S_SD)
-    19, // D12 is P0.19 (I2S_SCK)
-    33, // D13 is P1.01 (I2S_WS)
-    // NFC
-    9,  // D14 is P0.09 (RX1/NFC1)
-    10, // D15 is P0.10 (TX1/NFC2)
-    // VBAT
-    31, // D16 is P0.31 (BAT)
-    35, // D17 is P1.03 (SCK1)
-    37, // D18 is P1.05 (MISO1)
-    39, // D19 is P1.07 (MOSI1)
 
     // LEDs
     26, // D11 is P0.26 (LED RED)
@@ -59,12 +46,12 @@ const uint32_t g_ADigitalPinMap[] = {
     22, // D28 is P0.22 (QSPI_SIO_2 WP)
     23, // D29 is P0.23 (QSPI_SIO_3 HOLD)
 
-    // // NFC
-    // 9,  // D30 is P0.09 (NFC1)
-    // 10, // D31 is P0.10 (NFC2)
+    // NFC
+    9,  // D30 is P0.09 (NFC1)
+    10, // D31 is P0.10 (NFC2)
 
-    // // VBAT
-    // 31, // D32 is P0.10 (VBAT)
+    // VBAT
+    31, // D32 is P0.10 (VBAT)
 };
 
 void initVariant()
