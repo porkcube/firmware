@@ -1,14 +1,11 @@
-// basically xiao_ble with pins remapped for:
-// Seeed XIAO nRF52840 : https://www.seeedstudio.com/Seeed-XIAO-BLE-nRF52840-p-5201.html
-// Seeed Wio SX1626 : https://www.seeedstudio.com/Wio-SX1262-with-XIAO-ESP32S3-p-5982.html
-
-#ifndef _SEEED_XIAO_NRF52840_SENSE_H_
-#define _SEEED_XIAO_NRF52840_SENSE_H_
+#ifndef _SEEED_XIAO_NRF52840_PLUS_H_
+#define _SEEED_XIAO_NRF52840_PLUS_H_
 
 /** Master clock frequency */
-#define VARIANT_MCK (64000000ul)
+#define VARIANT_MCK       (64000000ul)
 
-#define USE_LFXO // Board uses 32khz crystal for LF
+#define USE_LFXO      // Board uses 32khz crystal for LF
+//#define USE_LFRC    // Board uses RC for LF
 
 /*----------------------------------------------------------------------------
  *        Headers
@@ -17,162 +14,183 @@
 #include "WVariant.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif // __cplusplus
 
-#define PINS_COUNT (33)
-#define NUM_DIGITAL_PINS (33)
-#define NUM_ANALOG_INPUTS (8) // A6 is used for battery, A7 is analog reference
-#define NUM_ANALOG_OUTPUTS (0)
+#define PINS_COUNT              (39)
+#define NUM_DIGITAL_PINS        (39)
+#define NUM_ANALOG_INPUTS       (8)
+#define NUM_ANALOG_OUTPUTS      (0)
 
 // LEDs
-// ----
-#define LED_RED 11
-#define LED_BLUE 12
-#define LED_GREEN 13
+#define PIN_LED                 (LED_RED)
+#define LED_PWR                 (PINS_COUNT)
+#define PIN_NEOPIXEL            (PINS_COUNT)
+#define NEOPIXEL_NUM            (0)
 
-#define PIN_LED1 LED_GREEN
-#define PIN_LED2 LED_BLUE
-#define PIN_LED3 LED_RED
+#define LED_BUILTIN             (PIN_LED)
 
-#define LED_STATE_ON 1 // State when LED is lit
+#define LED_RED                 (11)
+#define LED_GREEN               (13)
+#define LED_BLUE                (12)
 
-// XIAO Wio-SX1262 Shield User button
-#define PIN_BUTTON1 29 // D3
-#define BUTTON_NEED_PULLUP
+#define LED_STATE_ON            (1)     // State when LED is litted
 
-// Digital Pins
-// ------------
-#define D0 (0ul)
-#define D1 (1ul)
-#define D2 (2ul)
-#define D3 (3ul)
-#define D4 (4ul)
-#define D5 (5ul)
-#define D6 (6ul)
-#define D7 (7ul)
-#define D8 (8ul)
-#define D9 (9ul)
-#define D10 (10ul)
+// Buttons
+// #define PIN_BUTTON1             (PINS_COUNT)
 
-// Analog Pins
-// -----------
-#define PIN_A0 (0)
-#define PIN_A1 (1)
-#define PIN_A2 (2)
-#define PIN_A3 (3)
-#define PIN_A4 (4)
-#define PIN_A5 (5)
-#define PIN_VBAT (32)
-#define VBAT_ENABLE (14)
+// Digital PINs
+static const uint8_t D0  = 0 ;
+static const uint8_t D1  = 1 ;
+static const uint8_t D2  = 2 ;
+static const uint8_t D3  = 3 ;
+static const uint8_t D4  = 4 ;
+static const uint8_t D5  = 5 ;
+static const uint8_t D6  = 6 ;
+static const uint8_t D7  = 7 ;
+static const uint8_t D8  = 8 ;
+static const uint8_t D9  = 9 ;
+static const uint8_t D10 = 10;
 
-static const uint8_t A0 = PIN_A0;
-static const uint8_t A1 = PIN_A1;
-static const uint8_t A2 = PIN_A2;
-static const uint8_t A3 = PIN_A3;
-static const uint8_t A4 = PIN_A4;
-static const uint8_t A5 = PIN_A5;
-#define ADC_RESOLUTION 12
+static const uint8_t D11 = 30;
+static const uint8_t D12 = 31;
+static const uint8_t D13 = 32;
+static const uint8_t D14 = 33;
+static const uint8_t D15 = 34;
+static const uint8_t D16 = 35;
+static const uint8_t D17 = 36;
+static const uint8_t D18 = 37;
+static const uint8_t D19 = 38;
 
-// Other Pins
-// ----------
-// #define PIN_NFC1 (30)
-// #define PIN_NFC2 (31)
+#define VBAT_ENABLE             (14)    // Output LOW to enable reading of the BAT voltage.
+                                        // https://wiki.seeedstudio.com/XIAO_BLE#q3-what-are-the-considerations-when-using-xiao-nrf52840-sense-for-battery-charging
 
-// RX and TX pins
-#define PIN_SERIAL1_RX (10) // D15 (-1)
-#define PIN_SERIAL1_TX (4)  // D4 (-1)
-// complains if not defined
-#define PIN_SERIAL2_RX (-1)
-#define PIN_SERIAL2_TX (-1)
+#define PIN_CHARGING_CURRENT    (22)    // Battery Charging current
+                                        // https://wiki.seeedstudio.com/XIAO_BLE#battery-charging-current
 
+// Analog pins
+#define PIN_A0                  (0)     // (-1)
+#define PIN_A1                  (1)
+#define PIN_A2                  (2)
+#define PIN_A3                  (3)
+#define PIN_A4                  (4)     // (-1)
+#define PIN_A5                  (5)
+#define PIN_VBAT                (35)    // Read the BAT voltage.
+                                        // https://wiki.seeedstudio.com/XIAO_BLE#q3-what-are-the-considerations-when-using-xiao-nrf52840-sense-for-battery-charging
+
+static const uint8_t A0  = PIN_A0;
+static const uint8_t A1  = PIN_A1;
+static const uint8_t A2  = PIN_A2;
+static const uint8_t A3  = PIN_A3;
+static const uint8_t A4  = PIN_A4;
+static const uint8_t A5  = PIN_A5;
+static const uint8_t ADC_BAT  = PIN_VBAT;
+
+#define ADC_RESOLUTION          (12)
+
+// BUTTON_A
+#define PIN_BUTTON1 (3)  // D3 // (3)  // 29 // P0.29
+
+// BUTTON_B
+#define PIN_BUTTON2 (33) //  D14  // (9)  // 4 // P0.09
+
+// trackball
+#define HAS_TRACKBALL 1
+#define TB_UP D2     // 28    // DPADC
+#define TB_DOWN D1   // 3   // DPADA
+#define TB_LEFT D12  // 19  // DPADB
+#define TB_RIGHT D13 // 33 // DPADD
+// #define TB_PRESS 29
+#define TB_DIRECTION FALLING
+// #define TB_DIRECTION RISING
+// #define TB_THRESHOLD 3
+
+// Other pins
+#define PIN_NFC1                (33)
+#define PIN_NFC2                (34)
+
+#define GPS_L76K
+#define GPS_TX_PIN D15 // D6 // This is data from the MCU
+#define GPS_RX_PIN D4 // D7 // This is data from the GNSS module
+#define HAS_GPS 1
+#define GPS_BAUDRATE 9600
+#define GPS_THREAD_INTERVAL 50
+// Serial interfaces
+#define PIN_SERIAL1_TX GPS_TX_PIN
+#define PIN_SERIAL1_RX GPS_RX_PIN
+
+// #define PIN_SERIAL1_RX          D15 // (15) // (7)
+// #define PIN_SERIAL1_TX          D4  // (4) // (6)
+
+static const uint8_t RX  = PIN_SERIAL1_RX;
+static const uint8_t TX  = PIN_SERIAL1_TX;
+
+#define PIN_SERIAL2_RX        (-1)
+#define PIN_SERIAL2_TX        (-1)
+
+static const uint8_t RX1  = PIN_SERIAL2_RX;
+static const uint8_t TX1  = PIN_SERIAL2_TX;
+
+// SPI Interfaces
+#define SPI_INTERFACES_COUNT    (1) // (2)
+
+#define PIN_SPI_MISO            (9)
+#define PIN_SPI_MOSI            (10)
+#define PIN_SPI_SCK             (8)
+
+static const uint8_t SS   = 7;
+static const uint8_t MOSI = PIN_SPI_MOSI;
+static const uint8_t MISO = PIN_SPI_MISO;
+static const uint8_t SCK  = PIN_SPI_SCK ;
+
+#define PIN_SPI1_MISO           (37)
+#define PIN_SPI1_MOSI           (36)
+#define PIN_SPI1_SCK            (38)
+
+static const uint8_t MOSI1 = PIN_SPI1_MOSI;
+static const uint8_t MISO1 = PIN_SPI1_MISO;
+static const uint8_t SCK1  = PIN_SPI1_SCK ;
 
 // Wire Interfaces
-// -------------------
-#define I2C_NO_RESCAN
-#define WIRE_INTERFACES_COUNT 1 // 2
-#define PIN_WIRE_SDA (2)  // D0
-#define PIN_WIRE_SCL (15) // D11
+#define WIRE_INTERFACES_COUNT   (1) // (2)
+
+#define PIN_WIRE_SDA            (5) // (11)  // (5)  // (4) // (4)
+#define PIN_WIRE_SCL            (6) // (0) // (6)  // (5) // (15) // (5)
 
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;
 
-// SPI SX1262
-// ----------
-#define SPI_SX1262
-#ifdef SPI_SX1262
-#define SPI_INTERFACES_COUNT 1
+#define PIN_WIRE1_SDA           (17)
+#define PIN_WIRE1_SCL           (16)
+#define PIN_LSM6DS3TR_C_POWER   (15)
+#define PIN_LSM6DS3TR_C_INT1    (18)
 
-#define PIN_SPI_MISO (9)
-#define PIN_SPI_MOSI (10)
-#define PIN_SPI_SCK (8)
+// i2s Interfaces
+#define PIN_I2S_SCK             (31)
+#define PIN_I2S_SD              (30)
+#define PIN_I2S_WS              (32)
 
-static const uint8_t SS = D3;
-static const uint8_t MOSI = PIN_SPI_MOSI;
-static const uint8_t MISO = PIN_SPI_MISO;
-static const uint8_t SCK = PIN_SPI_SCK;
+static const uint8_t I2S_SCK = PIN_I2S_SCK;
+static const uint8_t I2S_SD  = PIN_I2S_SD ;
+static const uint8_t I2S_WS  = PIN_I2S_WS ;
 
-// supported modules list
-#define USE_SX1262
+// PDM Interfaces
+#define PIN_PDM_PWR	            (19)
+#define PIN_PDM_CLK	            (20)
+#define PIN_PDM_DIN	            (21)
 
-// common pinouts for SX126X modules
-#define SX126X_CS D3
-#define SX126X_DIO1 D0
-#define SX126X_BUSY D1
-#define SX126X_RESET D2
+// QSPI Pins
+#define PIN_QSPI_SCK            (24)
+#define PIN_QSPI_CS             (25)
+#define PIN_QSPI_IO0            (26)
+#define PIN_QSPI_IO1            (27)
+#define PIN_QSPI_IO2            (28)
+#define PIN_QSPI_IO3            (29)
 
-// DIO2 controlls an antenna switch and the TCXO voltage is controlled by DIO3
-#define SX126X_DIO2_AS_RF_SWITCH
-#define SX126X_RXEN 38
-#define SX126X_TXEN RADIOLIB_NC
-#define SX126X_DIO3_TCXO_VOLTAGE 1.8
-#define SX126X_DIO3_TCXO_VOLTAGE 1.8
-#endif
-
-
-
-// // Sense version has IMU and PDM Mic
-// // #define XIAO_SENSE
-// #ifndef XIAO_SENSE
-// // 6 DoF IMU
-// #define PIN_LSM6DS3TR_C_POWER (15)
-// #define PIN_LSM6DS3TR_C_INT1 (18)
-// // PDM Interfaces
-// // ---------------
-// #define PIN_PDM_PWR (19)
-// #define PIN_PDM_CLK (20)
-// #define PIN_PDM_DIN (21)
-// #endif
-
-// // QSPI Pins
-// // ---------
-// #define PIN_QSPI_SCK (24)
-// #define PIN_QSPI_CS (25)
-// #define PIN_QSPI_IO0 (26)
-// #define PIN_QSPI_IO1 (27)
-// #define PIN_QSPI_IO2 (28)
-// #define PIN_QSPI_IO3 (29)
-
-// // On-board QSPI Flash
-// // -------------------
-// #define EXTERNAL_FLASH_DEVICES P25Q16H
-// #define EXTERNAL_FLASH_USE_QSPI
-
-// Battery
-// -------
-// P0_14 = 14  Reads battery voltage from divider on signal board.
-// PIN_VBAT is reading voltage divider on XIAO and is program pin 32 / or P0.31
-#define ADC_CTRL VBAT_ENABLE
-#define ADC_CTRL_ENABLED LOW
-#define BATTERY_SENSE_RESOLUTION_BITS 10
-#define CHARGE_LED 23 // P0_17 = 17  D23   YELLOW CHARGE LED
-#define HICHG 22      // P0_13 = 13  D22   Charge-select pin for Lipo for 100 mA instead of default 50mA charge
-
-// The battery sense is hooked to pin A0 (5)
-#define BATTERY_PIN PIN_VBAT // PIN_A0
-
-// ratio of voltage divider = 3.0 (R17=1M, R18=510k)
-#define ADC_MULTIPLIER 3 // 3.0 + a bit for being optimistic
+// On-board QSPI Flash
+#define EXTERNAL_FLASH_DEVICES  (P25Q16H)
+#define EXTERNAL_FLASH_USE_QSPI
 
 #ifdef __cplusplus
 }
