@@ -73,8 +73,8 @@ void initVariant()
     // https://wiki.seeedstudio.com/XIAO_BLE#battery-charging-current
     pinMode(PIN_CHARGING_CURRENT, INPUT);
 
-    pinMode(PIN_QSPI_CS, OUTPUT);
-    digitalWrite(PIN_QSPI_CS, HIGH);
+    // pinMode(PIN_QSPI_CS, OUTPUT);
+    // digitalWrite(PIN_QSPI_CS, HIGH);
 
     pinMode(LED_RED, OUTPUT);
     digitalWrite(LED_RED, HIGH);

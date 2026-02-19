@@ -29,13 +29,13 @@ extern "C"
 #define PIN_NEOPIXEL            (PINS_COUNT)
 #define NEOPIXEL_NUM            (0)
 
-#define LED_BUILTIN             (PIN_LED)
+// #define LED_BUILTIN             (PIN_LED)
 
 #define LED_RED                 (11)
 #define LED_GREEN               (13)
 #define LED_BLUE                (12)
 
-#define LED_STATE_ON            (1)     // State when LED is litted
+#define LED_STATE_ON            1    // (1)     // State when LED is litted
 
 // Buttons
 // #define PIN_BUTTON1             (PINS_COUNT)
@@ -111,11 +111,11 @@ static const uint8_t ADC_BAT  = PIN_VBAT;
 #define PIN_NFC2                (34)
 
 #define GPS_L76K
-#define GPS_TX_PIN D15 // D6 // This is data from the MCU
-#define GPS_RX_PIN D4 // D7 // This is data from the GNSS module
+#define GPS_TX_PIN D4  // D6 // This is data from the MCU
+#define GPS_RX_PIN D15 // D7 // This is data from the GNSS module
 #define HAS_GPS 1
 #define GPS_BAUDRATE 9600
-#define GPS_THREAD_INTERVAL 50
+// #define GPS_THREAD_INTERVAL 50
 // Serial interfaces
 #define PIN_SERIAL1_TX GPS_TX_PIN
 #define PIN_SERIAL1_RX GPS_RX_PIN
@@ -135,22 +135,91 @@ static const uint8_t TX1  = PIN_SERIAL2_TX;
 // SPI Interfaces
 #define SPI_INTERFACES_COUNT    (1) // (2)
 
-#define PIN_SPI_MISO            (9)
-#define PIN_SPI_MOSI            (10)
-#define PIN_SPI_SCK             (8)
+// SPI ~ LR1121
+#define USE_LR1121
+#ifdef USE_LR1121
+#define PIN_SPI_MOSI  D10 // (32 + 15)
+#define PIN_SPI_MISO  D9  // (32 + 14)
+#define PIN_SPI_SCK   D8  // (32 + 13)
+#define PIN_SPI_NSS   D7  // (32 + 12)
 
-static const uint8_t SS   = 7;
 static const uint8_t MOSI = PIN_SPI_MOSI;
 static const uint8_t MISO = PIN_SPI_MISO;
-static const uint8_t SCK  = PIN_SPI_SCK ;
+static const uint8_t SCK = PIN_SPI_SCK;
+static const uint8_t SS = PIN_SPI_NSS;
 
-#define PIN_SPI1_MISO           (37)
-#define PIN_SPI1_MOSI           (36)
-#define PIN_SPI1_SCK            (38)
+// #ifdef USE_LR1121
+#define LR1121_IRQ_PIN           D19        // (0 + 10)      // P0.10 IRQ
+#define LR1121_NRESET_PIN        D17        // LORA_RESET // P0.09 NRST
+#define LR1121_BUSY_PIN          D18        // (0 + 29)     // P0.29 BUSY
+#define LR1121_SPI_NSS_PIN       D7         // LORA_CS   // P1.13
+#define LR1121_SPI_SCK_PIN       D8         // LORA_SCK
+#define LR1121_SPI_MOSI_PIN      D10        // LORA_MOSI
+#define LR1121_SPI_MISO_PIN      D9         // LORA_MISO
+#define LR11X0_DIO3_TCXO_VOLTAGE 1.8
+#define LR11X0_DIO_AS_RF_SWITCH
+#endif
 
-static const uint8_t MOSI1 = PIN_SPI1_MOSI;
-static const uint8_t MISO1 = PIN_SPI1_MISO;
-static const uint8_t SCK1  = PIN_SPI1_SCK ;
+
+
+
+
+// // SPI LR1121
+// // ----------
+// #define SPI_LR1121
+// #ifdef SPI_LR1121
+// // #define SPI_INTERFACES_COUNT 1
+
+// #define PIN_SPI_MOSI  D10 // (32 + 15)
+// #define PIN_SPI_MISO  D9  // (32 + 14)
+// #define PIN_SPI_SCK   D8  // (32 + 13)
+// #define PIN_SPI_NSS   D7  // (32 + 12)
+
+// static const uint8_t MOSI = PIN_SPI_MOSI;
+// static const uint8_t MISO = PIN_SPI_MISO;
+// static const uint8_t SCK = PIN_SPI_SCK;
+// static const uint8_t SS = PIN_SPI_NSS;
+
+// #define LORA_RESET D17       // (32 + 3)  // P1.03 ~ RST
+// #define LORA_DIO1  D19       // (32 + 7)  // P1.07 ~ IRQ/DIO1
+// #define LORA_DIO2  D18       // (32 + 5)   // P1.05 ~ BUSY/DIO2
+// #define LORA_SCK   D8        // (32 + 13)   // P1.13 ~ SCK
+// #define LORA_MISO  D9        // (32 + 14)  // P1.14 ~ MISO
+// #define LORA_MOSI  D10       // (32 + 15)  // P1.15 ~ MOSI
+// #define LORA_CS    D7        // (32 + 12)    // P1.12 ~ CS
+
+// // supported modules list
+// #define USE_LR1110
+
+// #define LR1110_IRQ_PIN LORA_DIO1
+// #define LR1110_BUSY_PIN LORA_DIO2
+// #define LR1110_NRESET_PIN LORA_RESET
+// #define LR1110_SPI_NSS_PIN LORA_CS
+// #define LR1110_SPI_SCK_PIN LORA_SCK
+// #define LR1110_SPI_MOSI_PIN LORA_MOSI
+// #define LR1110_SPI_MISO_PIN LORA_MISO
+
+// #define LR11X0_DIO3_TCXO_VOLTAGE 1.6
+// #define LR11X0_DIO_AS_RF_SWITCH
+// #endif
+
+
+// #define PIN_SPI_MISO            (9)
+// #define PIN_SPI_MOSI            (10)
+// #define PIN_SPI_SCK             (8)
+
+// static const uint8_t SS   = 7;
+// static const uint8_t MOSI = PIN_SPI_MOSI;
+// static const uint8_t MISO = PIN_SPI_MISO;
+// static const uint8_t SCK  = PIN_SPI_SCK ;
+
+// #define PIN_SPI1_MISO           (37)
+// #define PIN_SPI1_MOSI           (36)
+// #define PIN_SPI1_SCK            (38)
+
+// static const uint8_t MOSI1 = PIN_SPI1_MOSI;
+// static const uint8_t MISO1 = PIN_SPI1_MISO;
+// static const uint8_t SCK1  = PIN_SPI1_SCK ;
 
 // Wire Interfaces
 #define WIRE_INTERFACES_COUNT   (1) // (2)
@@ -161,36 +230,36 @@ static const uint8_t SCK1  = PIN_SPI1_SCK ;
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;
 
-#define PIN_WIRE1_SDA           (17)
-#define PIN_WIRE1_SCL           (16)
-#define PIN_LSM6DS3TR_C_POWER   (15)
-#define PIN_LSM6DS3TR_C_INT1    (18)
+// #define PIN_WIRE1_SDA           (17)
+// #define PIN_WIRE1_SCL           (16)
+// #define PIN_LSM6DS3TR_C_POWER   (15)
+// #define PIN_LSM6DS3TR_C_INT1    (18)
 
-// i2s Interfaces
-#define PIN_I2S_SCK             (31)
-#define PIN_I2S_SD              (30)
-#define PIN_I2S_WS              (32)
+// // i2s Interfaces
+// #define PIN_I2S_SCK             (31)
+// #define PIN_I2S_SD              (30)
+// #define PIN_I2S_WS              (32)
 
-static const uint8_t I2S_SCK = PIN_I2S_SCK;
-static const uint8_t I2S_SD  = PIN_I2S_SD ;
-static const uint8_t I2S_WS  = PIN_I2S_WS ;
+// static const uint8_t I2S_SCK = PIN_I2S_SCK;
+// static const uint8_t I2S_SD  = PIN_I2S_SD ;
+// static const uint8_t I2S_WS  = PIN_I2S_WS ;
 
 // PDM Interfaces
-#define PIN_PDM_PWR	            (19)
-#define PIN_PDM_CLK	            (20)
-#define PIN_PDM_DIN	            (21)
+// #define PIN_PDM_PWR	            (19)
+// #define PIN_PDM_CLK	            (20)
+// #define PIN_PDM_DIN	            (21)
 
 // QSPI Pins
-#define PIN_QSPI_SCK            (24)
-#define PIN_QSPI_CS             (25)
-#define PIN_QSPI_IO0            (26)
-#define PIN_QSPI_IO1            (27)
-#define PIN_QSPI_IO2            (28)
-#define PIN_QSPI_IO3            (29)
+// #define PIN_QSPI_SCK            (24)
+// #define PIN_QSPI_CS             (25)
+// #define PIN_QSPI_IO0            (26)
+// #define PIN_QSPI_IO1            (27)
+// #define PIN_QSPI_IO2            (28)
+// #define PIN_QSPI_IO3            (29)
 
 // On-board QSPI Flash
-#define EXTERNAL_FLASH_DEVICES  (P25Q16H)
-#define EXTERNAL_FLASH_USE_QSPI
+// #define EXTERNAL_FLASH_DEVICES  (P25Q16H)
+// #define EXTERNAL_FLASH_USE_QSPI
 
 #ifdef __cplusplus
 }
