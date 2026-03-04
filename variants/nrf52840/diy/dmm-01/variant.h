@@ -29,7 +29,7 @@ extern "C"
 #define PIN_NEOPIXEL            (PINS_COUNT)
 #define NEOPIXEL_NUM            (0)
 
-// #define LED_BUILTIN             (PIN_LED)
+#define LED_BUILTIN             (PIN_LED)
 
 #define LED_RED                 (11)
 #define LED_GREEN               (13)
@@ -89,11 +89,14 @@ static const uint8_t ADC_BAT  = PIN_VBAT;
 
 #define ADC_RESOLUTION          (12)
 
+// #define PIN_BUTTON1 D3  // D3 // (3)  // 29 // P0.29
+/// v1_1 has single button, v1.0 had 2
 // BUTTON_A
 #define PIN_BUTTON1 (3)  // D3 // (3)  // 29 // P0.29
-
+#ifdef V1_0
 // BUTTON_B
 #define PIN_BUTTON2 (33) //  D14  // (9)  // 4 // P0.09
+#endif      // V1_0
 
 // trackball
 #define HAS_TRACKBALL 1
@@ -101,27 +104,27 @@ static const uint8_t ADC_BAT  = PIN_VBAT;
 #define TB_DOWN D1   // 3   // DPADA
 #define TB_LEFT D12  // 19  // DPADB
 #define TB_RIGHT D13 // 33 // DPADD
-// #define TB_PRESS 29
+// #ifdef V1_1
+// #define TB_PRESS D14
+// #endif
 #define TB_DIRECTION FALLING
 // #define TB_DIRECTION RISING
 // #define TB_THRESHOLD 3
 
 // Other pins
-#define PIN_NFC1                (33)
-#define PIN_NFC2                (34)
+// #define PIN_NFC1                (33)
+// #define PIN_NFC2                (34)
 
+#ifdef USE_GPS
 #define GPS_L76K
-#define GPS_TX_PIN D4  // D6 // This is data from the MCU
-#define GPS_RX_PIN D15 // D7 // This is data from the GNSS module
 #define HAS_GPS 1
 #define GPS_BAUDRATE 9600
 // #define GPS_THREAD_INTERVAL 50
-// Serial interfaces
-#define PIN_SERIAL1_TX GPS_TX_PIN
-#define PIN_SERIAL1_RX GPS_RX_PIN
+#endif    // USE_GPS
 
-// #define PIN_SERIAL1_RX          D15 // (15) // (7)
-// #define PIN_SERIAL1_TX          D4  // (4) // (6)
+// Serial interfaces
+#define PIN_SERIAL1_TX D4
+#define PIN_SERIAL1_RX D15
 
 static const uint8_t RX  = PIN_SERIAL1_RX;
 static const uint8_t TX  = PIN_SERIAL1_TX;
@@ -136,26 +139,26 @@ static const uint8_t TX1  = PIN_SERIAL2_TX;
 #define SPI_INTERFACES_COUNT    (1) // (2)
 
 // SPI ~ LR1121
-#define USE_LR1121
+// #define USE_LR1121
 #ifdef USE_LR1121
 #define PIN_SPI_MOSI  D10 // (32 + 15)
 #define PIN_SPI_MISO  D9  // (32 + 14)
 #define PIN_SPI_SCK   D8  // (32 + 13)
 #define PIN_SPI_NSS   D7  // (32 + 12)
 
-static const uint8_t MOSI = PIN_SPI_MOSI;
-static const uint8_t MISO = PIN_SPI_MISO;
-static const uint8_t SCK = PIN_SPI_SCK;
-static const uint8_t SS = PIN_SPI_NSS;
+// static const uint8_t MOSI = PIN_SPI_MOSI;
+// static const uint8_t MISO = PIN_SPI_MISO;
+// static const uint8_t SCK = PIN_SPI_SCK;
+// static const uint8_t SS = PIN_SPI_NSS;
 
 // #ifdef USE_LR1121
-#define LR1121_IRQ_PIN           D19        // (0 + 10)      // P0.10 IRQ
+#define LR1121_IRQ_PIN           D0 // D19        // (0 + 10)      // P0.10 IRQ
 #define LR1121_NRESET_PIN        D17        // LORA_RESET // P0.09 NRST
 #define LR1121_BUSY_PIN          D18        // (0 + 29)     // P0.29 BUSY
 #define LR1121_SPI_NSS_PIN       D7         // LORA_CS   // P1.13
 #define LR1121_SPI_SCK_PIN       D8         // LORA_SCK
-#define LR1121_SPI_MOSI_PIN      D10        // LORA_MOSI
 #define LR1121_SPI_MISO_PIN      D9         // LORA_MISO
+#define LR1121_SPI_MOSI_PIN      D10        // LORA_MOSI
 #define LR11X0_DIO3_TCXO_VOLTAGE 1.8
 #define LR11X0_DIO_AS_RF_SWITCH
 #endif
